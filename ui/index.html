@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://ai-public.mastergo.com/gen_page/tailwind-custom.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#3B82F6'
+},
+borderRadius: {
+'none': '0px',
+'sm': '2px',
+DEFAULT: '4px',
+'md': '8px',
+'lg': '12px',
+'xl': '16px',
+'2xl': '20px',
+'3xl': '24px',
+'full': '9999px',
+'button': '4px'
+}
+}
+}
+}
+</script>
+<style>
+body {
+min-height: 1024px;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@keyframes fadeIn {
+from {
+opacity: 0;
+transform: translateY(10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+.animate-fade-in {
+animation: fadeIn 0.3s ease-out forwards;
+}
+.article-content {
+height: calc(100vh - 80px);
+position: relative;
+}
+::-webkit-scrollbar {
+width: 6px;
+height: 6px;
+}
+::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 3px;
+}
+::-webkit-scrollbar-thumb {
+background: #c1c1c1;
+border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: #999;
+}
+.tag {
+background: rgba(59, 130, 246, 0.1);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<div class="w-[1440px] mx-auto">
+<header class="h-[80px] px-8 flex items-center bg-white border-b border-gray-200 sticky top-0 z-40">
+<div class="w-[160px] flex items-center">
+<i class="fas fa-brain text-primary text-2xl mr-2"></i>
+<span class="text-xl font-medium">infoSnap</span>
+</div>
+<div class="flex-1"></div>
+<button class="w-10 h-10 mr-4 bg-primary hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer group">
+<i class="fas fa-lightbulb text-xl group-hover:scale-110 transition-transform"></i>
+<div class="absolute -bottom-10 right-0 bg-gray-800 text-white text-xs py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+加入知识库
+</div>
+</button>
+<button onclick="toggleChatDialog()" class="w-10 h-10 mr-4 bg-primary hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer group">
+<i class="fas fa-robot text-xl group-hover:scale-110 transition-transform"></i>
+<div class="absolute -bottom-10 right-0 bg-gray-800 text-white text-xs py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+点击开始对话
+</div>
+</button>
+<button class="w-10 h-10 bg-primary hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer group relative">
+<i class="fas fa-user text-xl group-hover:scale-110 transition-transform"></i>
+<div class="absolute -bottom-10 right-0 bg-gray-800 text-white text-xs py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+点击登录
+</div>
+</button>
+</header>
+<main class="flex">
+<div class="w-[240px] bg-white article-content overflow-auto border-r border-gray-200 pt-4">
+<div class="space-y-2">
+<div class="p-2 bg-primary bg-opacity-10 rounded-lg cursor-pointer text-primary">
+<div class="truncate text-sm font-medium">首页</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="truncate text-sm text-gray-700">ChatGPT 提示工程：如何设计高效的提示词</div>
+<div class="text-xs mt-1 text-gray-500">2024-01-18</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="truncate text-sm text-gray-700">人工智能时代的产品设计原则与实践</div>
+<div class="text-xs mt-1 text-gray-500">2024-01-17</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="truncate text-sm text-gray-700">深度学习在自然语言处理中的应用</div>
+<div class="text-xs mt-1 text-gray-500">2024-01-15</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="truncate text-sm text-gray-700">机器学习算法优化策略分析</div>
+<div class="text-xs mt-1 text-gray-500">2024-01-14</div>
+</div>
+</div>
+<div class="absolute bottom-4 left-4 right-4">
+<button class="w-full py-2 px-3 bg-gray-50 hover:bg-gray-100 rounded-lg flex items-center gap-2 text-sm text-gray-600 transition-colors !rounded-button whitespace-nowrap">
+<i class="fas fa-history"></i>
+历史记录
+</button>
+</div>
+</div>
+<div class="flex-1 bg-white flex flex-col items-center justify-center">
+<div class="flex flex-col items-center -mt-32">
+<div class="mb-12 text-center">
+<div class="inline-flex items-center">
+<i class="fas fa-brain text-4xl text-primary mr-3"></i>
+<h1 class="text-4xl font-semibold text-gray-900">infoSnap</h1>
+</div>
+</div>
+<div class="w-[640px] relative">
+<input type="text" placeholder="搜索文章、主题或关键词" class="w-full h-[56px] pl-12 pr-4 bg-white border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary shadow-sm hover:shadow-md transition-shadow outline-none !rounded-button text-base">
+<i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- 对话框 -->
+<div id="chatDialog" class="fixed right-8 bottom-24 w-[400px] bg-white rounded-xl shadow-2xl z-50 hidden transition-opacity duration-300" style="opacity: 0;">
+<div class="p-4 border-b border-gray-200 flex justify-between items-center">
+<h3 class="font-medium">AI 助手</h3>
+<button onclick="toggleChatDialog()" class="text-gray-400 hover:text-gray-600">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="h-[480px] p-6 overflow-auto" style="scroll-behavior: smooth">
+<div id="chatMessages" class="space-y-4">
+<div class="flex items-start gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center">
+<i class="fas fa-v text-sm"></i>
+</div>
+<div class="flex-1 bg-gray-50 p-3 rounded-lg">
+<p class="text-sm">你好！我是文章助手，已经仔细阅读了这篇关于 ChatGPT 提示工程的文章。你可以问我任何关于文章内容的问题，我会帮你更好地理解文章要点。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-gray-200">
+<div class="flex gap-2">
+<input type="text" id="messageInput" placeholder="输入你的问题..." class="flex-1 h-10 px-3 bg-gray-50 border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none !rounded-button text-sm">
+<button onclick="sendMessage()" class="px-4 bg-primary hover:bg-blue-600 text-white !rounded-button whitespace-nowrap transition-colors">
+发送
+</button>
+</div>
+</div>
+</div>
+<script>
+function toggleChatDialog() {
+const dialog = document.getElementById('chatDialog');
+if (dialog.classList.contains('hidden')) {
+dialog.classList.remove('hidden');
+requestAnimationFrame(() => {
+dialog.style.opacity = '1';
+document.getElementById('messageInput').focus();
+});
+} else {
+dialog.style.opacity = '0';
+setTimeout(() => {
+dialog.classList.add('hidden');
+}, 300);
+}
+}
+function sendMessage() {
+const input = document.getElementById('messageInput');
+const message = input.value.trim();
+if (!message) return;
+const chatMessages = document.getElementById('chatMessages');
+const button = document.querySelector('#chatDialog button:last-child');
+button.disabled = true;
+button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+// 添加用户消息
+chatMessages.innerHTML += `
+<div class="flex items-start gap-2 justify-end">
+<div class="flex-1 bg-primary bg-opacity-10 p-3 rounded-lg">
+<p class="text-sm">${message}</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+<i class="fas fa-user text-sm text-gray-600"></i>
+</div>
+</div>
+`;
+chatMessages.scrollTop = chatMessages.scrollHeight;
+// 模拟AI回复并随机选择回答
+const responses = [
+"根据文章内容，提示工程的四个核心原则是：明确性、结构化、上下文提供和示例引导。这些原则能帮助我们更好地与AI模型交互。",
+"文章中提到的常见提示模式包括：角色扮演、步骤分解、模板应用和思维链。每种模式都有其特定的应用场景。",
+"从文章可以看出，好的提示设计需要清晰的语言描述、合理的任务分解、充分的背景信息和具体的示例引导。",
+"文章强调了提示工程在AI交互中的重要性，它能够帮助我们获得更准确、更有用的AI模型输出。"
+];
+setTimeout(() => {
+const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+chatMessages.innerHTML += `
+<div class="flex items-start gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center">
+<i class="fas fa-v text-sm"></i>
+</div>
+<div class="flex-1 bg-gray-50 p-3 rounded-lg animate-fade-in">
+<p class="text-sm">${randomResponse}</p>
+</div>
+</div>
+`;
+chatMessages.scrollTop = chatMessages.scrollHeight;
+button.disabled = false;
+button.innerHTML = '发送';
+}, 1000);
+input.value = '';
+}
+// 监听回车键发送消息
+document.getElementById('messageInput').addEventListener('keypress', function(e) {
+if (e.key === 'Enter') {
+sendMessage();
+}
+});
+</script>
+</body>
+</html>

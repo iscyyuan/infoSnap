@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://ai-public.mastergo.com/gen_page/tailwind-custom.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#3B82F6'
+},
+borderRadius: {
+'none': '0px',
+'sm': '2px',
+DEFAULT: '4px',
+'md': '8px',
+'lg': '12px',
+'xl': '16px',
+'2xl': '20px',
+'3xl': '24px',
+'full': '9999px',
+'button': '4px'
+}
+}
+}
+}
+</script>
+<style>
+body {
+min-height: 1024px;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@keyframes fadeIn {
+from {
+opacity: 0;
+transform: translateY(10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+.animate-fade-in {
+animation: fadeIn 0.3s ease-out forwards;
+}
+.article-content {
+height: calc(100vh - 80px);
+position: relative;
+}
+::-webkit-scrollbar {
+width: 6px;
+height: 6px;
+}
+::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 3px;
+}
+::-webkit-scrollbar-thumb {
+background: #c1c1c1;
+border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: #999;
+}
+.tag {
+background: rgba(59, 130, 246, 0.1);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<div class="w-[1440px] mx-auto">
+<header class="h-[80px] px-8 flex items-center bg-white border-b border-gray-200">
+<div class="flex items-center gap-2">
+<i class="fas fa-brain text-primary text-2xl"></i>
+<span class="text-xl font-medium">infoSnap</span>
+</div>
+<div class="flex-1 flex justify-center">
+<div class="w-[400px]">
+<div class="relative">
+<input type="text" placeholder="请输入文章URL" class="w-full h-[36px] pl-4 pr-12 bg-gray-50 border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none !rounded-button text-sm">
+<button class="absolute right-2 top-1/2 -translate-y-1/2 text-primary px-2 py-1 !rounded-button whitespace-nowrap">
+<i class="fas fa-arrow-right"></i>
+</button>
+</div>
+</div>
+</div>
+<button class="w-10 h-10 mr-4 bg-primary hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer group">
+<i class="fas fa-lightbulb text-xl group-hover:scale-110 transition-transform"></i>
+<div class="absolute -bottom-10 right-0 bg-gray-800 text-white text-xs py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+加入知识库
+</div>
+</button>
+<button onclick="toggleChatDialog()" class="w-10 h-10 mr-4 bg-primary hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer group">
+<i class="fas fa-robot text-xl group-hover:scale-110 transition-transform"></i>
+<div class="absolute -bottom-10 right-0 bg-gray-800 text-white text-xs py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+点击开始对话
+</div>
+</button>
+<button class="w-10 h-10 bg-primary hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer group relative">
+<i class="fas fa-user text-xl group-hover:scale-110 transition-transform"></i>
+<div class="absolute -bottom-10 right-0 bg-gray-800 text-white text-xs py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+点击登录
+</div>
+</button>
+</header>
+<main class="flex">
+<div class="w-[160px] bg-white p-4 article-content overflow-auto border-r border-gray-200">
+<div class="space-y-2">
+<div class="p-2 bg-primary bg-opacity-10 rounded-lg cursor-pointer text-primary">
+<div class="truncate text-sm font-medium">ChatGPT 提示工程：如何设计高效的提示词</div>
+<div class="text-xs mt-1 text-gray-500">2024-01-18</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="truncate text-sm text-gray-700">人工智能时代的产品设计原则与实践</div>
+<div class="text-xs mt-1 text-gray-500">2024-01-17</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="truncate text-sm text-gray-700">大模型应用开发最佳实践指南</div>
+<div class="text-xs mt-1 text-gray-500">2024-01-16</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="truncate text-sm text-gray-700">深度学习在自然语言处理中的应用</div>
+<div class="text-xs mt-1 text-gray-500">2024-01-15</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+<div class="truncate text-sm text-gray-700">机器学习算法优化策略分析</div>
+<div class="text-xs mt-1 text-gray-500">2024-01-14</div>
+</div>
+</div>
+<div class="absolute bottom-4 left-4 right-4">
+<button class="w-full py-2 px-3 bg-gray-50 hover:bg-gray-100 rounded-lg flex items-center gap-2 text-sm text-gray-600 transition-colors !rounded-button whitespace-nowrap">
+<i class="fas fa-history"></i>
+历史记录
+</button>
+</div>
+</div>
+<div class="w-[440px] bg-white p-4 article-content overflow-auto border-r border-gray-200">
+<div class="mb-4 flex items-center justify-between">
+<h3 class="text-base font-medium">知识库</h3>
+<button class="text-sm text-primary hover:text-blue-600 transition-colors">
+<i class="fas fa-plus"></i>
+</button>
+</div>
+<div class="space-y-2">
+<div class="p-2 bg-primary bg-opacity-10 rounded-lg cursor-pointer">
+<div class="flex items-center gap-2">
+<i class="fas fa-folder text-primary"></i>
+<span class="text-sm text-primary font-medium">默认收藏夹</span>
+</div>
+<div class="text-xs mt-1 text-gray-500">21篇文章</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer group">
+<div class="flex items-center gap-2">
+<i class="fas fa-folder text-gray-400 group-hover:text-gray-600"></i>
+<span class="text-sm text-gray-700">AI 基础知识</span>
+</div>
+<div class="text-xs mt-1 text-gray-500">8篇文章</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer group">
+<div class="flex items-center gap-2">
+<i class="fas fa-folder text-gray-400 group-hover:text-gray-600"></i>
+<span class="text-sm text-gray-700">提示工程</span>
+</div>
+<div class="text-xs mt-1 text-gray-500">13篇文章</div>
+</div>
+<div class="p-2 hover:bg-gray-50 rounded-lg cursor-pointer group">
+<div class="flex items-center gap-2">
+<i class="fas fa-folder text-gray-400 group-hover:text-gray-600"></i>
+<span class="text-sm text-gray-700">最佳实践</span>
+</div>
+<div class="text-xs mt-1 text-gray-500">15篇文章</div>
+</div>
+</div>
+</div>
+<div class="w-[840px] bg-white p-4 article-content overflow-auto border-r border-gray-200">
+<div class="mb-4">
+<div class="relative">
+<input type="text" placeholder="搜索文章..." class="w-full h-[36px] pl-10 pr-4 bg-gray-50 border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none !rounded-button text-sm">
+<i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+</div>
+</div>
+<div class="space-y-3">
+<div class="p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">默认分类</span>
+<div class="text-xs text-gray-500">2024-01-18</div>
+</div>
+<div class="flex items-center gap-2 text-xs">
+<div class="flex items-center text-primary">
+<span class="font-medium">9.0</span>
+<span class="text-gray-400 ml-1">/10</span>
+</div>
+<div class="text-gray-400">•</div>
+<div class="text-gray-500">15 min</div>
+</div>
+</div>
+<div class="text-sm font-medium text-gray-800 mb-2">ChatGPT 提示工程：如何设计高效的提示词</div>
+<div class="mb-2 flex flex-wrap gap-1">
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">ChatGPT</span>
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">AI</span>
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">提示工程</span>
+</div>
+<div class="text-xs text-gray-500 line-clamp-2">本文详细介绍了 ChatGPT 提示工程的概念、原则和常用模式，帮助读者更好地利用 AI 模型。</div>
+</div>
+<div class="p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">默认分类</span>
+<div class="text-xs text-gray-500">2024-01-17</div>
+</div>
+<div class="flex items-center gap-2 text-xs">
+<div class="flex items-center text-primary">
+<span class="font-medium">8.5</span>
+<span class="text-gray-400 ml-1">/10</span>
+</div>
+<div class="text-gray-400">•</div>
+<div class="text-gray-500">12 min</div>
+</div>
+</div>
+<div class="text-sm font-medium text-gray-800 mb-2">人工智能在企业中的实践应用</div>
+<div class="mb-2 flex flex-wrap gap-1">
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">AI应用</span>
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">企业实践</span>
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">自动化</span>
+</div>
+<div class="text-xs text-gray-500 line-clamp-2">探讨了AI技术如何在企业环境中落地，包括流程自动化、智能决策支持等实际案例。</div>
+</div>
+<div class="p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">默认分类</span>
+<div class="text-xs text-gray-500">2024-01-16</div>
+</div>
+<div class="flex items-center gap-2 text-xs">
+<div class="flex items-center text-primary">
+<span class="font-medium">8.8</span>
+<span class="text-gray-400 ml-1">/10</span>
+</div>
+<div class="text-gray-400">•</div>
+<div class="text-gray-500">18 min</div>
+</div>
+</div>
+<div class="text-sm font-medium text-gray-800 mb-2">机器学习模型优化策略</div>
+<div class="mb-2 flex flex-wrap gap-1">
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">机器学习</span>
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">模型优化</span>
+<span class="tag px-2 py-0.5 text-xs text-primary !rounded-button whitespace-nowrap">特征工程</span>
+</div>
+<div class="text-xs text-gray-500 line-clamp-2">深入分析了机器学习模型的优化方法，包括参数调优、特征工程等关键技术。</div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-[600px] bg-white p-6 article-content overflow-auto ml-4">
+<h1 class="text-2xl font-medium mb-4">ChatGPT 提示工程：如何设计高效的提示词</h1>
+<div class="flex items-center gap-4 mb-6 text-sm text-gray-500">
+<a href="https://example.com/articles/chatgpt-prompt-engineering-guide" class="hover:text-primary transition-colors flex items-center gap-2">
+<i class="fas fa-link"></i>
+原文链接
+</a>
+<button class="hover:text-primary transition-colors flex items-center gap-2">
+<i class="fas fa-lightbulb"></i>
+加入知识库
+</button>
+</div>
+<div class="text-gray-600 leading-7">
+<p class="mb-4">在人工智能快速发展的今天，ChatGPT 等大语言模型的出现为我们提供了强大的自然语言处理能力。然而，要充分发挥这些模型的潜力，掌握提示工程（Prompt Engineering）的技巧至关重要。</p>
+<h2 class="text-xl font-medium my-4">什么是提示工程？</h2>
+<p class="mb-4">提示工程是指设计和优化输入提示，以获得 AI 模型更好输出的过程。一个好的提示不仅能帮助模型更好地理解用户意图，还能引导模型产生更准确、更有用的回答。</p>
+<h2 class="text-xl font-medium my-4">提示工程的核心原则</h2>
+<p class="mb-4">1. 明确性：使用清晰、具体的语言描述需求</p>
+<p class="mb-4">2. 结构化：将复杂任务分解为简单步骤</p>
+<p class="mb-4">3. 上下文提供：给出必要的背景信息</p>
+<p class="mb-4">4. 示例引导：通过具体例子说明期望输出</p>
+<h2 class="text-xl font-medium my-4">常见提示模式</h2>
+<p class="mb-4">1. 角色扮演：让 AI 扮演特定角色</p>
+<p class="mb-4">2. 步骤分解：将任务分解为具体步骤</p>
+<p class="mb-4">3. 模板应用：使用固定格式的提示模板</p>
+<p class="mb-4">4. 思维链：引导 AI 展示推理过程</p>
+</div>
+</div>
+<div class="w-[400px] bg-white ml-4 p-6 article-content overflow-auto">
+<div class="space-y-8">
+<div>
+<div class="flex flex-wrap gap-8">
+<div class="flex-1">
+<h3 class="text-lg font-medium mb-4">文章标签</h3>
+<div class="flex flex-wrap gap-2">
+<span class="tag px-2 py-0.5 text-sm text-primary !rounded-button whitespace-nowrap">AI</span>
+<span class="tag px-2 py-0.5 text-sm text-primary !rounded-button whitespace-nowrap">ChatGPT</span>
+<span class="tag px-2 py-0.5 text-sm text-primary !rounded-button whitespace-nowrap">提示工程</span>
+<span class="tag px-2 py-0.5 text-sm text-primary !rounded-button whitespace-nowrap">人工智能</span>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-medium mb-4">优先级评分</h3>
+<div class="cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden')">
+<div class="flex items-center gap-2">
+<div class="text-2xl text-primary font-medium">9.0</div>
+<div class="text-sm text-gray-500">/10</div>
+<div class="flex text-primary">
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star-half-alt"></i>
+</div>
+</div>
+</div>
+<div class="mt-4 bg-gray-50 p-4 rounded-lg">
+<div class="text-sm text-gray-600">
+<div class="font-medium mb-2">评分理由：</div>
+<ul class="space-y-2">
+<li>• 内容全面且系统地介绍了提示工程的核心概念</li>
+<li>• 提供了具体可操作的实践指南和方法</li>
+<li>• 结构清晰，层次分明，易于理解和应用</li>
+<li>• 对提示工程的重要性有深入阐述</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div class="flex items-center cursor-pointer mb-4" onclick="this.parentElement.querySelector('.content').classList.toggle('hidden')">
+<h3 class="text-lg font-medium flex-1">一句话总结</h3>
+<i class="fas fa-chevron-down text-gray-400 group-hover:text-primary transition-transform duration-200"></i>
+</div>
+<div class="content">
+<p class="text-gray-600">本文详细介绍了 ChatGPT 提示工程的概念、原则和常用模式，帮助读者更好地利用 AI 模型。</p>
+</div>
+</div>
+<div>
+<div class="flex items-center cursor-pointer mb-4" onclick="this.parentElement.querySelector('.content').classList.toggle('hidden')">
+<h3 class="text-lg font-medium flex-1">详细摘要</h3>
+<i class="fas fa-chevron-down text-gray-400 group-hover:text-primary transition-transform duration-200"></i>
+</div>
+<div class="content">
+<p class="text-gray-600 leading-7">文章首先介绍了提示工程的定义及其在 AI 交互中的重要性，然后详细阐述了提示工程的四个核心原则：明确性、结构化、上下文提供和示例引导。最后，文章总结了四种常见的提示模式：角色扮演、步骤分解、模板应用和思维链，为读者提供了实践指导。</p>
+</div>
+</div>
+<div>
+<div class="flex items-center cursor-pointer mb-4">
+<h3 class="text-lg font-medium flex-1">本文解决的问题</h3>
+</div>
+<div class="space-y-4">
+<div class="border border-gray-200 rounded-lg">
+<div class="flex items-center justify-between p-4 cursor-pointer" onclick="this.parentElement.querySelector('.solution').classList.toggle('hidden')">
+<div class="text-gray-700">如何理解提示工程的概念</div>
+<i class="fas fa-chevron-down text-gray-400"></i>
+</div>
+<div class="solution hidden border-t border-gray-200 p-4 bg-gray-50">
+<div class="text-sm text-gray-600">
+<div class="font-medium mb-2">解决方案 / 见解：</div>
+提示工程是优化AI输入以获得更好输出的过程，它是一种系统化的方法，通过精确设计提示来提升AI模型的理解和响应质量。
+</div>
+</div>
+</div>
+<div class="border border-gray-200 rounded-lg">
+<div class="flex items-center justify-between p-4 cursor-pointer" onclick="this.parentElement.querySelector('.solution').classList.toggle('hidden')">
+<div class="text-gray-700">如何设计有效的 ChatGPT 提示词</div>
+<i class="fas fa-chevron-down text-gray-400"></i>
+</div>
+<div class="solution hidden border-t border-gray-200 p-4 bg-gray-50">
+<div class="text-sm text-gray-600">
+<div class="font-medium mb-2">解决方案 / 见解：</div>
+遵循明确性原则，使用清晰具体的语言，并提供充分的上下文信息。同时，通过示例说明期望输出，帮助模型更好地理解需求。
+</div>
+</div>
+</div>
+<div class="border border-gray-200 rounded-lg">
+<div class="flex items-center justify-between p-4 cursor-pointer" onclick="this.parentElement.querySelector('.solution').classList.toggle('hidden')">
+<div class="text-gray-700">如何应用不同的提示模式</div>
+<i class="fas fa-chevron-down text-gray-400"></i>
+</div>
+<div class="solution hidden border-t border-gray-200 p-4 bg-gray-50">
+<div class="text-sm text-gray-600">
+<div class="font-medium mb-2">解决方案 / 见解：</div>
+根据任务需求选择合适的模式：角色扮演适合特定场景，步骤分解适合复杂任务，模板应用确保一致性，思维链用于展示推理过程。
+</div>
+</div>
+</div>
+<div class="border border-gray-200 rounded-lg">
+<div class="flex items-center justify-between p-4 cursor-pointer" onclick="this.parentElement.querySelector('.solution').classList.toggle('hidden')">
+<div class="text-gray-700">如何提高 AI 模型的输出质量</div>
+<i class="fas fa-chevron-down text-gray-400"></i>
+</div>
+<div class="solution hidden border-t border-gray-200 p-4 bg-gray-50">
+<div class="text-sm text-gray-600">
+<div class="font-medium mb-2">解决方案 / 见解：</div>
+通过结构化提示、提供充分上下文、使用示例引导等方式，同时结合多种提示模式，不断优化和调整提示策略。
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- 对话框 -->
+<div id="chatDialog" class="fixed right-8 bottom-24 w-[360px] bg-white rounded-lg shadow-2xl z-50 hidden transition-opacity duration-300" style="opacity: 0;">
+<div class="p-4 border-b border-gray-200 flex justify-between items-center">
+<h3 class="font-medium">AI 助手</h3>
+<button onclick="toggleChatDialog()" class="text-gray-400 hover:text-gray-600">
+<i class="fas fa-times"></i>
+</button>
+</div>
+<div class="h-[480px] p-4 overflow-auto" style="scroll-behavior: smooth">
+<div id="chatMessages" class="space-y-4">
+<div class="flex items-start gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center">
+<i class="fas fa-robot text-sm"></i>
+</div>
+<div class="flex-1 bg-gray-50 p-3 rounded-lg">
+<p class="text-sm">你好！我是文章助手，已经仔细阅读了这篇关于 ChatGPT 提示工程的文章。你可以问我任何关于文章内容的问题，我会帮你更好地理解文章要点。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-gray-200">
+<div class="flex gap-2">
+<input type="text" id="messageInput" placeholder="输入你的问题..." class="flex-1 h-10 px-3 bg-gray-50 border border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none !rounded-button text-sm">
+<button onclick="sendMessage()" class="px-4 bg-primary hover:bg-blue-600 text-white !rounded-button whitespace-nowrap transition-colors">
+发送
+</button>
+</div>
+</div>
+</div>
+<script>
+function toggleChatDialog() {
+const dialog = document.getElementById('chatDialog');
+if (dialog.classList.contains('hidden')) {
+dialog.classList.remove('hidden');
+requestAnimationFrame(() => {
+dialog.style.opacity = '1';
+document.getElementById('messageInput').focus();
+});
+} else {
+dialog.style.opacity = '0';
+setTimeout(() => {
+dialog.classList.add('hidden');
+}, 300);
+}
+}
+function sendMessage() {
+const input = document.getElementById('messageInput');
+const message = input.value.trim();
+if (!message) return;
+const chatMessages = document.getElementById('chatMessages');
+const button = document.querySelector('#chatDialog button:last-child');
+button.disabled = true;
+button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+// 添加用户消息
+chatMessages.innerHTML += `
+<div class="flex items-start gap-2 justify-end">
+<div class="flex-1 bg-primary bg-opacity-10 p-3 rounded-lg">
+<p class="text-sm">${message}</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+<i class="fas fa-user text-sm text-gray-600"></i>
+</div>
+</div>
+`;
+chatMessages.scrollTop = chatMessages.scrollHeight;
+// 模拟AI回复并随机选择回答
+const responses = [
+"根据文章内容，提示工程的四个核心原则是：明确性、结构化、上下文提供和示例引导。这些原则能帮助我们更好地与AI模型交互。",
+"文章中提到的常见提示模式包括：角色扮演、步骤分解、模板应用和思维链。每种模式都有其特定的应用场景。",
+"从文章可以看出，好的提示设计需要清晰的语言描述、合理的任务分解、充分的背景信息和具体的示例引导。",
+"文章强调了提示工程在AI交互中的重要性，它能够帮助我们获得更准确、更有用的AI模型输出。"
+];
+setTimeout(() => {
+const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+chatMessages.innerHTML += `
+<div class="flex items-start gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center">
+<i class="fas fa-robot text-sm"></i>
+</div>
+<div class="flex-1 bg-gray-50 p-3 rounded-lg animate-fade-in">
+<p class="text-sm">${randomResponse}</p>
+</div>
+</div>
+`;
+chatMessages.scrollTop = chatMessages.scrollHeight;
+button.disabled = false;
+button.innerHTML = '发送';
+}, 1000);
+input.value = '';
+}
+// 监听回车键发送消息
+document.getElementById('messageInput').addEventListener('keypress', function(e) {
+if (e.key === 'Enter') {
+sendMessage();
+}
+});
+</script>
+</body>
+</html>
